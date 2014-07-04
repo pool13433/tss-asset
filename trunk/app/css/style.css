@@ -1,0 +1,21 @@
+
+root { 
+    display: block;
+}
+header{
+
+}
+footer{
+    text-align: center;
+}
+body{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.my-error-class {
+    color:#FF0000;  /* red */
+}
+.my-valid-class {
+    color:#000000; /* green */
+}
+
