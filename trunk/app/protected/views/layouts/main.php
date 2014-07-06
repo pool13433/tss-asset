@@ -9,38 +9,42 @@
 
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <?php // Yii::app()->bootstrap->register(); ?>
-        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/script.js'); ?>
+        <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/script.js'); ?>
         <?php
-        
         //ui
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jquery-ui/js/jquery-ui-1.10.4.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-ui/js/jquery-ui-1.10.4.js');
         // end ui
-        
-        
-         // validate ************************************
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jquery-ui-1.10.3.custom.js');
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/jquery-validation/dist/jquery.validate.min.js');
-            // validate ************************************
-        
+        // validate ************************************
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-ui-1.10.3.custom.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/jquery-validation/dist/jquery.validate.min.js');
+        // validate ************************************
         // noty ***********
         //Yii::app()->clientScript->registerScriptFile('../noty/demo/jquery-1.7.2.min.js');
         //Yii::app()->clientScript->registerScriptFile('http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/jquery.noty.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/packaged/jquery.noty.packaged.min.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/top.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/topCenter.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/center.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/topLeft.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/topRight.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/jquery.noty.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/packaged/jquery.noty.packaged.min.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/top.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/topCenter.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/center.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/topLeft.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/topRight.js');
 
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/bottomCenter.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/bottomLeft.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/bottomRight.js');
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/layouts/bottom.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/bottomCenter.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/bottomLeft.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/bottomRight.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/layouts/bottom.js');
 
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/noty/js/noty/themes/default.js');
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/js/noty/js/noty/themes/default.js');
         // noty ***********
         ?>
+        <script type="text/javascript">
+            $(function() {
+                var url = '<?php echo Yii::app()->createUrl('Site/CheckLogin') ?>';
+                var urlAdmin = '<?php echo Yii::app()->createUrl('Member/Index') ?>';
+                var urlMember = '<?php echo Yii::app()->createUrl('Site/Index') ?>';
+                checkLogin(url, urlAdmin, urlMember);
+            });
+        </script>
     </head>
 
     <body>

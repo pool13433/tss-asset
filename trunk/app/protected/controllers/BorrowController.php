@@ -39,38 +39,64 @@ class BorrowController extends Controller {
 
     public function actionSaveBorrow() {
         if (!empty($_POST)) {
-            $m_id = "";
-            // 1. insert new user
-            // 2. 
             if (empty($_POST['mid'])) { // insert New Member
                 $member = new Member();
-                $member->m_fname = $_POST[''];
-                $member->m_lname = $_POST[''];
-                $member->m_address = $_POST[''];
-                $member->m_birthday = $_POST[''];
-                $member->m_career = $_POST[''];
-                $member->m_createdate = $_POST[''];
-                $member->m_email = $_POST[''];
-                $member->m_img = $_POST[''];
-                $member->m_password = $_POST[''];
-                $member->m_pid = $_POST[''];
-                $member->m_tel = $_POST[''];
-                $member->m_username = $_POST[''];
-                $member->save();
-                $m_id = $member->m_id;
             } else {
-                $m_id = $_POST['mid'];
+                $member = Member::model()->findByPk($_POST['mid']);
             }
-            $borrow = new Borrow();
-            $borrow->b_createdate = new CDbExpression('NOW()');
-            $borrow->b_startdate = $_POST['startdate'];
-            $borrow->b_stopdate = $_POST['enddate'];
-            $borrow->m_id = $m_id;
-            $borrow->b_code = $_POST['code'];
-            $borrow->b_status = 1;
-            if ($borrow->save()) {
-                echo 'success';
+            // save new user
+            $member->m_fname = $_POST['fname'];
+            $member->m_lname = $_POST['lname'];
+            $member->m_address = $_POST['address'];
+            $member->m_birthday = $_POST['birthdate'];
+            //$member->m_career = $_POST[''];
+            $member->m_createdate = new CDbExpression('NOW()');
+            $member->m_email = $_POST['email'];
+            // $member->m_img = $_POST[''];
+            // $member->m_password = $_POST[''];
+            $member->m_pid = $_POST['pid'];
+            $member->m_tel = $_POST['phone'];
+            // $member->m_username = $_POST[''];
+            if ($member->save()) {
+                $create = DateTime::createFromFormat('d/m/Y', $_POST['startdate']);
+                $end = DateTime::createFromFormat('d/m/Y', $_POST['enddate']);
+                $borrow = new Borrow();
+                $borrow->b_createdate = new CDbExpression('NOW()');
+                $borrow->b_startdate = $create->format('Y-m-d'); //$_POST['startdate'];
+                $borrow->b_stopdate = $end->format('Y-m-d'); //$_POST['enddate'];
+                $borrow->m_id = $member->m_id;
+                $borrow->b_code = $_POST['code'];
+                $borrow->b_status = 1;
+                if ($borrow->save()) {
+                    // cut stock
+                    $criteria = new CDbCriteria();
+                    $criteria->compare('b_id', Yii::app()->session['bor_id']);
+                    $criteria->compare('bd_createdate', date('Y-m-d'));
+
+                    $borrowDetail = BorrowDetail::model()->findAll($criteria);
+                    // var_dump($borrowDetail);
+                    if (isset($borrowDetail)) {
+                        foreach ($borrowDetail as $borItem) {
+                            $item = Item::model()->findByPk($borItem->i_id);
+                            //var_dump($item);
+                            //var_dump("amount: " . intval($borItem->i_amount));
+                            //var_dump("num:" . intval($item->i_num));
+                            $total = intval($item->i_num) - intval($borItem->i_amount);
+                            //var_dump("total: " . intval($total));
+                            $item->i_num = intval($total);
+                            $item->update();
+                        }
+                    }
+
+                    CommonApp::updateSEQ_('borrow');
+                    unset(Yii::app()->session['bor_id']);
+                    echo 'success';
+                }
+            } else {
+                echo 'fail';
             }
+        } else {
+            echo 'not post';
         }
     }
 
