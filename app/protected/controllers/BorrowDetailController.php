@@ -27,6 +27,20 @@ class BorrowDetailController extends Controller {
                 echo 'success';
             }
         }
+//        var_dump(Yii::app()->session['cart']);
+//        if (empty(Yii::app()->session['cart'])) {
+//            Yii::app()->session['cart'];
+//        }
+//        $arrayCart = array(
+//            'item' => 1,
+//        );
+//        var_dump($arrayCart);
+//        $borrowId = Yii::app()->session['bor_id'];
+//
+//        $borrow = new BorrowDetail();
+////        $borrow->i_amount = $_POST['amount'];
+////        $borrow->i_id = $_POST['item_id'];
+////        $borrow->b_id = $borrowId;
     }
 
 }

@@ -1,37 +1,3 @@
-<script type="text/javascript">
-    function checkPid() {
-        var searchpid_ = $('#pid_').val();
-        if (searchpid_.length < 13) {
-            notyMessageClick('กรุณากรอกข้อมูลให้ครบ 13 หลัก', 'center', 'error');
-            return false;
-        } else {
-            $.ajax({
-                url: '<?php echo Yii::app()->createUrl('Member/CheckPid') ?>',
-                dataType: 'json',
-                type: 'POST',
-                data: {
-                    pid_: searchpid_,
-                },
-                success: function(data) {
-                    //alert(print(data));
-                    if (data != null) {
-                        $('#mid').val(data.m_id);
-                        $('#fname').val(data.m_fname);
-                        $('#lname').val(data.m_lname);
-                        $('#birthdate').val(data.m_birthday);
-                        //$('#pid').val(data.m_pid);
-                        $('#phone').val(data.m_tel);
-                        $('#email').val(data.m_email);
-                        $('#address').val(data.m_address);
-                    } else {
-                        notyMessageClick('ไม่พบ รหัสบัตร ของผู้ใช้งานในฐานข้อมู \n กรุณา กรอกข้อมูล', 'center', 'warning');
-                        $('#profile-form')[0].reset();
-                    }
-                }
-            });
-        }
-    }
-</script>
 <div class="panel panel-info">
     <div class="panel-heading">
         <span class="alert-success alert">
@@ -54,7 +20,7 @@
         </div>                   
     </div>   
     <div class="panel-body" >
-        <form class="form-horizontal" id="profile-form" name="profile-form">
+        <form class="form-horizontal" name="borrowprofile-form" id="borrowprofile-form">
             <h3 class="alert-info alert">ข้อมูลส่วนตัว</h3>
             <hr/>
             <div class="form-group">
@@ -67,7 +33,10 @@
                     <input type="hidden" class="form-control" name="mid" id="mid"/>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-primary" type="button" onclick="checkPid()">ค้น รหัสบัตร</button>
+                    <button class="btn btn-primary" type="button" 
+                            onclick="checkPid('<?php echo Yii::app()->createUrl('Member/CheckPid') ?>')">
+                        <i class="glyphicon glyphicon-search"></i> ค้น รหัสบัตร
+                    </button>
                 </div>
             </div>
             <div class="form-group">
@@ -123,9 +92,9 @@
             <hr/>
             <div class="form-group">
                 <div class="col-md-12">
-                    <label class="col-sm-2">วันเริ่ม ใช้งาน</label>
+                    <label class="col-sm-2">รหัส ใบยืม</label>
                     <div class="col-sm-3  input-group">
-                        <input type="text" class="form-control" id="code" name="code" value="<?= $code ?>" disabled="true"/>
+                        <input type="text" class="form-control" id="code" name="code" value="<?= $code ?>" readonly="true"/>
                     </div>
                 </div>
             </div>
@@ -140,7 +109,6 @@
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     </div>
                 </div>
-
             </div>  
         </form>
     </div>
@@ -148,7 +116,8 @@
         <div class="row">
             <label class="col-sm-3"></label>
             <div class="col-sm-6">
-                <button type="button" class="btn btn-primary" onclick="return saveProfile();">
+                <button type="button" class="btn btn-primary" 
+                        onclick="return saveProfile('<?php echo Yii::app()->createUrl('Borrow/SaveBorrow') ?>');">
                     <i class="glyphicon glyphicon-ok"></i> บันทึก
                 </button>                 
                 <button type = "button" class = "btn btn-danger">

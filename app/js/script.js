@@ -1,67 +1,12 @@
 //Main Script
 $(function() {
-// login
-    checkLogin();
+// login    
     datepicker_byId('#birthdate');
     datepicker_byId('#startdate');
     datepicker_byId('#enddate');
 });
-function saveProfile() {
-    $("#profile-form")
-            .validate({
-        debug: false,
-        rules: {
-            pid: {required: true, },
-            fname: {required: true, },
-            lname: {required: true, },
-            birthdate: {required: true, },
-            phone: {required: true, },
-            email: {required: true, },
-            address: {required: true, },
-            code: {required: true, },
-            startdate: {required: true, },
-            enddate: {required: true, },
-        },
-        messages: {
-            pid: {required: " กรุณากรอกข้อมูล รหัสบัตรประชาชน", },
-            fname: {required: " กรุณากรอกข้อมูล fname", },
-            lname: {required: "กรุณากรอกข้อมูล lname", },
-            birthdate: {required: "กรุณากรอกข้อมูล birthdate", },
-            phone: {required: "กรุณากรอกข้อมูล phone", },
-            email: {required: "กรุณากรอกข้อมูล email", },
-            address: {required: "กรุณากรอกข้อมูล address", },
-            code: {required: "กรุณากรอกข้อมูล รหัสของการยืม", },
-            startdate: {required: "กรุณากรอกข้อมูล วันเริ่มการใช้งาน", },
-            enddate: {required: "กรุณากรอกข้อมูล วันสิ้นสุดการใช้งาน", },
-        },
-        errorClass: "my-error-class",
-        validClass: "my-valid-class",
-        highlight: function(element, errorClass) {
-            $(element).fadeOut(function() {
-                $(element).fadeIn();
-            });
-        }
-    });
-    if ($("#profile-form").valid()) {
-        //alert("ok");
-        if (confirm('ยืนยันการยืม')) {
-            $.ajax({
-                url: 'index.php?r=Borrow/SaveBorrow',
-                data: $('#profile-form').serialize(),
-                success: function(data) {
-                    if (data == 'success') {
-                        notyMessageClick('บันทึก สำเร็จ', 'center', 'information');
-                    } else {
-                        notyMessageClick('การบันทึก ผิดพลาด ', 'center', 'error');
-                    }
-                },
-            });
-        }
-    } else {
-        alert("false");
-    }
-}
-function checkLogin() {
+
+function checkLogin(url, urlAdmin, urlMember) {
     $('#btn-login').click(function() {
         var user = $('#user').val();
         var pass = $('#pass').val();
@@ -81,7 +26,7 @@ function checkLogin() {
 //alert(dialogConfirmDelete());
         if (confirm("Login Now ?")) {
             $.ajax({
-                url: 'index.php?r=Site/CheckLogin',
+                url: url, // '<?php Yii:app()->createUrl("Site/CheckLogin")?>', //index.php?r=Site/CheckLogin
                 dataType: 'json',
                 type: 'POST',
                 data: $("#login-form").serialize(),
@@ -90,10 +35,10 @@ function checkLogin() {
                     if (data.status == 'success') {
                         switch (data.group) {
                             case 1:
-                                window.location = 'index.php?r=Member/Index';
+                                window.location = urlAdmin;// '../index.php?r=Member/Index';
                                 break;
                             case 2:
-                                window.location = 'index.php?r=Site/Index';
+                                window.location = urlMember;//'../index.php?r=Site/Index';
                                 break;
                             default :
                                 alert('group อื่น' + data.group);
@@ -114,7 +59,8 @@ function checkLogin() {
 function datepicker_byId(id_input) {
 //date picker
     $(id_input).datepicker({
-        format: 'mm/dd/yyyy',
+        //format: 'mm/dd/yyyy',
+        format: 'yyyy-dd-mm',
         startDate: '-3d',
         pickDate: true,
         pickTime: true, //en/disables the time picker
@@ -317,4 +263,94 @@ function dialogConfirm() {
         close: function() {
         }
     });
+}
+function saveProfile(urlSave) {
+    $("#borrowprofile-form").validate({
+        debug: false,
+        rules: {
+            pid: {required: true, },
+            fname: {required: true, },
+            lname: {required: true, },
+            birthdate: {required: true, },
+            phone: {required: true, },
+            email: {required: true, },
+            address: {required: true, },
+            code: {required: true, },
+            startdate: {required: true, },
+            enddate: {required: true, },
+        },
+        messages: {
+            pid: {required: " กรุณากรอกข้อมูล รหัสบัตรประชาชน", },
+            fname: {required: " กรุณากรอกข้อมูล fname", },
+            lname: {required: "กรุณากรอกข้อมูล lname", },
+            birthdate: {required: "กรุณากรอกข้อมูล birthdate", },
+            phone: {required: "กรุณากรอกข้อมูล phone", },
+            email: {required: "กรุณากรอกข้อมูล email", },
+            address: {required: "กรุณากรอกข้อมูล address", },
+            code: {required: "กรุณากรอกข้อมูล รหัสของการยืม", },
+            startdate: {required: "กรุณากรอกข้อมูล วันเริ่มการใช้งาน", },
+            enddate: {required: "กรุณากรอกข้อมูล วันสิ้นสุดการใช้งาน", },
+        },
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+        highlight: function(element, errorClass) {
+            $(element).fadeOut(function() {
+                $(element).fadeIn();
+            });
+        }
+    });
+
+    if ($("#borrowprofile-form").valid()) {
+        //alert("ok");
+        if (confirm('ยืนยันการยืม')) {
+            $.ajax({
+                url: urlSave, //
+                type: 'POST',
+                data: $('#borrowprofile-form').serialize(), //borrowprofile-form
+                success: function(data) {
+                    //alert('data' + data);
+                    if (data == 'success') {
+                        notyMessageClick('บันทึก สำเร็จ', 'center', 'information');
+                    } else {
+                        notyMessageClick('การบันทึก ผิดพลาด ', 'center', 'error');
+                    }
+                },
+            });
+        }
+    } else {
+        alert("false");
+    }
+    return false;
+}
+function checkPid(urlCheck) {
+    var searchpid_ = $('#pid_').val();
+    if (searchpid_.length < 13) {
+        notyMessageClick('กรุณากรอกข้อมูลให้ครบ 13 หลัก', 'center', 'error');
+        return false;
+    } else {
+        $.ajax({
+            url: urlCheck, //
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                pid_: searchpid_,
+            },
+            success: function(data) {
+                //alert(print(data));
+                if (data != null) {
+                    $('#mid').val(data.m_id);
+                    $('#fname').val(data.m_fname);
+                    $('#lname').val(data.m_lname);
+                    $('#birthdate').val(data.m_birthday);
+                    //$('#pid').val(data.m_pid);
+                    $('#phone').val(data.m_tel);
+                    $('#email').val(data.m_email);
+                    $('#address').val(data.m_address);
+                } else {
+                    notyMessageClick('ไม่พบ รหัสบัตร ของผู้ใช้งานในฐานข้อมู \n กรุณา กรอกข้อมูล', 'center', 'warning');
+                    $('#borrowprofile-form')[0].reset();
+                }
+            }
+        });
+    }
 }

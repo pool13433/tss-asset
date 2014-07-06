@@ -20,19 +20,19 @@
         <div class="panel-default alert">
             <div class="row">
                 <div class="col-sm-3">ชื่อ</div>
-                <div class="col-sm-9"><?php echo $calendar->cal_name ?></div>
+                <div class="col-sm-9"><?php echo $calendar->b_code ?></div>
             </div>
             <div class="row">
                 <div class="col-sm-3">รายละเอียด</div>
-                <div class="col-sm-9"><?php echo $calendar->cal_detail ?></div>
+                <div class="col-sm-9"><?php echo $calendar->m_id ?></div>
             </div>
             <div class="row">
                 <div class="col-sm-3">วันที่เริ่ม ยืม</div>
-                <div class="col-sm-9"><?php echo $calendar->cal_start ?></div>
+                <div class="col-sm-9"><?php echo $calendar->b_startdate ?></div>
             </div>
             <div class="row">
                 <div class="col-sm-3">วันที่ สิ้นสุด</div>
-                <div class="col-sm-9"><?php echo $calendar->cal_finish ?></div>
+                <div class="col-sm-9"><?php echo $calendar->b_stopdate ?></div>
             </div>
         </div>
     </div>
