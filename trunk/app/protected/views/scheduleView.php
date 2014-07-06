@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="panel-footer">
-        <a class="btn btn-primary" href="<?php echo Yii::app()->createUrl('Schedule/Index')?>">
+        <a class="btn btn-primary" href="<?php echo Yii::app()->createUrl('Schedule/Index') ?>">
             <i class="glyphicon glyphicon-arrow-left"></i>
             <i class="glyphicon glyphicon-calendar"></i> กลับไป หน้า ปฏิทิน
         </a>
@@ -45,63 +45,63 @@
 </div>
 
 <?php
-        $this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
-        );
-        ?>
-        <div class="modal-header">
-            <a class="close" data-dismiss="modal">&times;</a>
-            <h4 id="myModalHeader">Modal header</h4>
-        </div>
+$this->beginWidget('booster.widgets.TbModal', array('id' => 'myModal')
+);
+?>
+<div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h4 id="myModalHeader">Modal header</h4>
+</div>
 
-        <div class="modal-body" id="myModalBody">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>ชื่อ</td>
-                        <td><?php ?></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="modal-body" id="myModalBody">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ชื่อ</td>
+                <td><?php ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-        <div class="modal-footer">
-            <?php
-            $this->widget(
-                    'booster.widgets.TbButton', array(
-                'label' => 'Close',
-                'url' => '#',
-                'htmlOptions' => array(
-                    'data-dismiss' => 'modal',
-                    'class' => 'btn btn-danger'),
-                    )
-            );
-            ?>
-        </div>
+<div class="modal-footer">
+    <?php
+    $this->widget(
+            'booster.widgets.TbButton', array(
+        'label' => 'Close',
+        'url' => '#',
+        'htmlOptions' => array(
+            'data-dismiss' => 'modal',
+            'class' => 'btn btn-danger'),
+            )
+    );
+    ?>
+</div>
 
-        <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>

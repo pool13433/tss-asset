@@ -9,7 +9,8 @@ $this->widget('booster.widgets.TbNavbar', array(
             'class' => 'booster.widgets.TbMenu',
             'type' => 'navbar',
             'items' => array(
-                //array('label' => 'Home', 'url' => '#', 'active' => true),                
+                array('label' => 'คืนของ', 'url' => Yii::app()->createUrl('Borrow/ReturnsIndex'), 'active' => true),
+                array('label' => 'คืนของ', 'url' => Yii::app()->createUrl('Borrow/ReturnsResult'), 'active' => true),
             )
         ),
         '<div class="navbar-form navbar-right">

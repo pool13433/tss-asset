@@ -100,4 +100,21 @@ class BorrowController extends Controller {
         }
     }
 
+    public function actionReturnsIndex() {
+        $this->render('//back/return_main');
+    }
+
+    public function actionReturnMain($code = null) {
+        if (!empty($code)) {
+            $criteria = new CDbCriteria();
+            $criteria->alias = 'br';
+            $criteria->join = "JOIN member m ON (br.m_id = m.m_id)";
+            $criteria->compare('b_code', $code);
+            $borrow = Borrow::model()->find($criteria);
+
+            echo 'helloworld';
+        }
+        $this->render('//back/return_result');
+    }
+
 }

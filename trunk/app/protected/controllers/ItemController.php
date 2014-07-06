@@ -102,8 +102,6 @@ class ItemController extends Controller {
         }
     }
 
-    
-
     public function actionItemSearchForm() {
         $this->render("//item_search");
     }
@@ -115,15 +113,14 @@ class ItemController extends Controller {
             $criteria->compare('i_nameth', $_POST['searchval_'], true, 'OR');
             //$criteria->compare('i_nameen', $_POST['searchval_'], true, 'OR');
             //$criteria->compare('i_detail', $_POST['searchval_'], true, 'OR');
-            $item = Item::model()->findAll($criteria);
-        } else {
-            $item = Item::model()->findAll();
         }
+        $criteria->compare('i_status', 0);
+        $item = Item::model()->findAll($criteria);
         $count = count($item);
         $this->renderPartial("//load_datasearch", array(
             'item' => $item,
             'count' => $count,
         ));
-    }    
+    }
 
 }
